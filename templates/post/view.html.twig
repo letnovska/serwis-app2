@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% endblock %}
+{% block title %}
+    {{ 'title.post'|trans({'%id%': film.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+
+
+    <h3 class="login-heading mb-4">
+        {{ 'title.post'|trans }}</h3>
+
+    {% if post  is defined and post|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label.title_post'|trans }}</dt>
+            <dd>{{ post.title }}</dd>
+            <dt>{{ 'label.post_content'|trans }}</dt>
+            <dd>{{ post.content }}</dd>
+            <dt>{{ 'label.date'|trans }}</dt>
+            <dd>{{ post.createdAt|date }}</dd>
+            <dt>{{ 'label.updatedAt'|trans }}</dt>
+            <dd>{{ post.updatedAt|date}}</dd>
+
+        </dl>
+    <a class="btn btn-primary prawa" href="{{ url('post_index')}}" title="{{ 'action.back_to_list'|trans }}">{{ 'action.back_to_list'|trans }}
+        </a>
+    {% else %}
+        <p>
+            {{ 'message.item_not_found'|trans }}
+        </p>
+    {% endif %}
+
+
+{% endblock %}

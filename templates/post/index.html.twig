@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% endblock %}
+
+{% block title %}
+    {{ 'title_post_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_post_list'|trans }}</h1>
+    <a class="btn btn-primary " href="{{ url('post_new')}}" title="{{ 'action.add_post'|trans }}">
+        {{ 'action.add_post'|trans }}
+    </a>
+    {% if pagination is defined and pagination|length %}
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{knp_pagination_sortable(pagination, 'label.id'|trans, 'l.id')}}</th>
+                <th>{{knp_pagination_sortable(pagination, 'label.title_post'|trans, 'l.title') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in pagination %}
+                <tr>
+                    <td>{{ post.id }}</td>
+                    <td>{{ post.title }}</td>
+                    <td><a class="btn btn-primary" href="{{ url('post_view', {id: post.id}) }}" title="{{ 'action.view'|trans }}">
+                            {{ 'action.view'|trans }}
+                        </a>
+                        <a class="btn btn-primary" href="{{ url('post_edit', {id: post.id}) }}" title="{{ 'action.edit'|trans }}">
+                            {{ 'action.edit'|trans }}
+                        </a>
+                        <a class="btn btn-primary" href="{{ url('post_delete', {id: post.id}) }}" title="{{ 'action.delete'|trans }}">
+                            {{ 'action.delete'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+
+{% endblock %}
