@@ -112,6 +112,7 @@ class PostController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setCreatedAt(new \DateTime());
+            $post->setUpdatedAt(new \DateTime());
             $repository->save($post);
             /*
              * Potwierdzienie zapisania
